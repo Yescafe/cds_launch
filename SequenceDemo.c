@@ -17,7 +17,6 @@ static void __info_seq(Sequence* seq, const char* info)
     printf(" %d", cSpace[i]);
   }
   printf("\nlist space:");
-  cSpace = SequenceConstIterGenerate(seq);
   for (size_t i = 0u; i < seq->capacity; ++i) {
     printf(" %d", cSpace[i]);
   }

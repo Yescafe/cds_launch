@@ -57,9 +57,9 @@ bool SequencePush(Sequence* seq, int i)
     // 准备两倍容量的新空间
     int* new_space = (int*) calloc(2u * seq->capacity, sizeof(int));
     if (!new_space) {   // 内存不足直接返回
-    _Error("Malloc failed.\n");
-    return true;
-  }
+      _Error("Malloc failed.\n");
+      return true;
+    }
     // 将原空间的内容拷贝到新空间中
     memcpy(new_space, seq->space, sizeof(int) * seq->capacity);
     // 释放原空间

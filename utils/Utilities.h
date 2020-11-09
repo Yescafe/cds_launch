@@ -8,6 +8,7 @@ extern "C" {
 #include <stdarg.h>
 #include <stdio.h>
 #include <stdbool.h>
+#include <stdlib.h>      // exit
 
 int _Error(const char* fmt, ...)
 {
@@ -30,6 +31,7 @@ int _Error(const char* fmt, ...)
       _Error("Assert failed! ");
       _Error(err_info);
       _Error("\n");
+      exit(1);
     }
   }
 #endif /* STD_ASSERT */

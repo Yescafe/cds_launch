@@ -23,6 +23,8 @@ bool SequenceRemoveAt(Sequence*, size_t, int*);
 int* SequenceIterGenerate(Sequence*);
 const int* SequenceConstIterGenerate(Sequence*);
 void SequenceShrinkToFit(Sequence*);
+size_t SequenceLength(Sequence*);
+size_t SequenceCapacity(Sequence*);
 void SequenceDestruct(Sequence*);
 
 #ifdef __cplusplus

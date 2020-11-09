@@ -204,6 +204,28 @@ void SequenceShrinkToFit(Sequence* seq)
 }
 
 /**
+ * 取得数组长度
+ * 
+ * @param seq
+ * @return 返回数组长度 size
+ */
+inline size_t SequenceLength(Sequence* seq)
+{
+  return seq->size;
+}
+
+/**
+ * 取得数组的当前最大容量。
+ * 
+ * @param seq
+ * @return 返回数组容量 capacity
+ */
+inline size_t SequenceCapacity(Sequence* seq)
+{
+  return seq->capacity;
+}
+
+/**
  * 解散数组。
  * 
  * @param seq

@@ -117,6 +117,8 @@ bool ForwardListPop(ForwardList* lst, int* pI)
   while (it->next != lst->tail)
     it = it->next;
   // 删除原 tail，重新设置 tail，断开无效链接
+  if (pI != NULL)
+    *pI = lst->tail->data;
   free(lst->tail);
   lst->tail = it;
   it->next = NULL;

@@ -1,6 +1,6 @@
 CCFLAGS   := -std=c99 -g -Wall -pedantic
 
-TARGETS   := SequenceDemo ForwardListDemo
+TARGETS   := SequenceDemo ForwardListDemo ListDemo
 TARGETS   := $(addprefix bin/,$(TARGETS))
 
 all: $(TARGETS)
@@ -15,6 +15,9 @@ bin/SequenceDemo: SequenceDemo.c Sequence.h Sequence.c
 
 bin/ForwardListDemo: ForwardListDemo.c ForwardList.h ForwardList.c
 	$(CC)  ForwardListDemo.c ForwardList.c  -o $@  $(CCFLAGS)
+
+bin/ListDemo: ListDemo.c List.h List.c
+	$(CC)  ListDemo.c List.c  -o $@  $(CCFLAGS)
 
 .PHONY:
 clean:

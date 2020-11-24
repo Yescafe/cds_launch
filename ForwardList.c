@@ -164,6 +164,18 @@ bool ForwardListRemoveAt(ForwardList* lst, size_t pos, int* pI)
 }
 
 /**
+ * 清空单链表。时间复杂度 O(N)。
+ * 
+ * @param lst
+ */
+void ForwardListClear(ForwardList* lst)
+{
+  // 因为 pop 算法的时间复杂度太高，这里选择让元素依次从首部弹出。
+  while (lst->length != 0)
+    ForwardListRemoveAt(lst, 0, NULL);
+}
+
+/**
  * 返回表首迭代器。
  * 
  * @param lst
@@ -210,6 +222,7 @@ ForwardListNode* ForwardListIterAdvance(ForwardListNode* it, size_t steps)
  */
 void ForwardListDestruct(ForwardList* lst)
 {
+  ForwardListClear(lst);
   free(lst->head);
   free(lst->tail);
   lst->head = lst->tail = NULL;

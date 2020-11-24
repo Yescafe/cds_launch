@@ -24,6 +24,7 @@ bool ForwardListPush(ForwardList*, int);
 bool ForwardListInsert(ForwardList*, size_t, int);
 bool ForwardListPop(ForwardList*, int*);
 bool ForwardListRemoveAt(ForwardList*, size_t, int*);
+void ForwardListClear(ForwardList*);
 ForwardListNode* ForwardListIterBegin(ForwardList*);
 ForwardListNode* ForwardListIterEnd(ForwardList*);
 ForwardListNode* ForwardListIterAdvance(ForwardListNode*, size_t);

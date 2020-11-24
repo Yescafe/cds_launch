@@ -22,7 +22,7 @@ void __info_lst(List* lst, const char* info)
   }
 }
 
-int main()
+int main(void)
 {
   List* lst = (List*) malloc(sizeof(List));
   ListInit(lst);

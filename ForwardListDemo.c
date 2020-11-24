@@ -40,6 +40,9 @@ int main(void)
   ForwardListInsert(lst, 0, 100);
   __info_lst(lst, "insert at front of a empty forward list");
 
+  //! bug here
+  //! 经过排查和考究，destruct -> clear -> remove_at -> pop -> insert
+  //! 问题应该出在 insert 插入元素时没有考虑原单链表中有无元素，是否需要设置尾节点指针
   ForwardListDestruct(lst);
   __info_lst(lst, "destruct");
 

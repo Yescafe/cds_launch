@@ -123,7 +123,6 @@ bool ForwardListPop(ForwardList* lst, int* pI)
   lst->tail = it;
   it->next = NULL;
   --lst->length;
-
   __ForwardListCheck(lst);
   return false;
 }
@@ -224,7 +223,6 @@ void ForwardListDestruct(ForwardList* lst)
 {
   ForwardListClear(lst);
   free(lst->head);
-  free(lst->tail);
   lst->head = lst->tail = NULL;
   lst->length = 0u;
 }

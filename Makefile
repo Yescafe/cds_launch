@@ -1,4 +1,4 @@
-CCFLAGS   := -std=c99 -Wall -pedantic
+CCFLAGS   := -std=c99 -g -Wall -pedantic
 
 TARGETS   := SequenceDemo ForwardListDemo
 TARGETS   := $(addprefix bin/,$(TARGETS))

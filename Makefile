@@ -1,21 +1,20 @@
-cc        := clang
-ccflags   := -std=c99 -Wall -pedantic
+CCFLAGS   := -std=c99 -Wall -pedantic
 
-targets   := SequenceDemo ForwardListDemo
-targets   := $(addprefix bin/,$(targets))
+TARGETS   := SequenceDemo ForwardListDemo
+TARGETS   := $(addprefix bin/,$(TARGETS))
 
-all: $(targets)
+all: $(TARGETS)
 
-$(targets): bin utils/Utilities.h
+$(TARGETS): bin utils/Utilities.h
 
 bin: 
 	mkdir -p bin
 
 bin/SequenceDemo: SequenceDemo.c Sequence.h Sequence.c
-	$(cc)  SequenceDemo.c Sequence.c  -o $@  $(ccflags)
+	$(CC)  SequenceDemo.c Sequence.c  -o $@  $(CCFLAGS)
 
 bin/ForwardListDemo: ForwardListDemo.c ForwardList.h ForwardList.c
-	$(cc)  ForwardListDemo.c ForwardList.c  -o $@  $(ccflags)
+	$(CC)  ForwardListDemo.c ForwardList.c  -o $@  $(CCFLAGS)
 
 .PHONY:
 clean:

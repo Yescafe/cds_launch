@@ -1,6 +1,6 @@
 CCFLAGS   := -std=c99 -g -Wall -pedantic
 
-TARGETS   := SequenceDemo ForwardListDemo ListDemo StackQueueDemo
+TARGETS   := SequenceDemo ForwardListDemo ListDemo StackQueueDemo BinaryTreeDemo
 TARGETS   := $(addprefix bin/,$(TARGETS))
 
 all: $(TARGETS)
@@ -21,6 +21,9 @@ bin/ListDemo: ListDemo.c List.h List.c
 
 bin/StackQueueDemo: StackQueueDemo.c Stack.h Stack.c Queue.h Queue.c List.h List.c
 	$(CC)  StackQueueDemo.c Stack.c Queue.c List.c  -o $@  $(CCFLAGS)
+
+bin/BinaryTreeDemo: BinaryTreeDemo.c BinaryTree.h BinaryTree.c
+	$(CC)  BinaryTreeDemo.c BinaryTree.c  -o $@  $(CCFLAGS)
 
 .PHONY:
 clean:

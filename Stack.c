@@ -8,7 +8,7 @@ extern "C" {
 
 bool StackInit(Stack* sk)
 {
-  if (!sk->__lst) return true;
+  if (sk->__lst) return true;
   sk->__lst = (List*) malloc(sizeof(List));
   return ListInit(sk->__lst);
 }

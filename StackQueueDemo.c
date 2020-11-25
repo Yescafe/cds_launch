@@ -24,8 +24,11 @@ void __info_lst(List* lst, const char* info)
 
 int main(void)
 {
-  Stack stack;
-  Queue queue;
+  // 紧急修复这里的 bug，
+  // 因为之前的测试都是在堆区开辟的区域，变量内元素被赋初值 0，
+  // 而这次将变量分在程序栈区，初值未定，导致 Init 的失败。
+  Stack stack = {NULL};
+  Queue queue = {NULL};
   StackInit(&stack);
   QueueInit(&queue);
 

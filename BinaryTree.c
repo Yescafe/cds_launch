@@ -119,6 +119,7 @@ void BinaryTreeLayerorderTraversalAuxWithPrinter(BinaryTree* tr, IntPrinter prin
   typedef struct BinaryTreeNodeQueue {
     BTNQueueNode* sentinel;
     BTNQueueNode* tail;
+    size_t length;
   } BTNQueue;
   /*
     因为层序遍历就是 BFS，逻辑是比较简单的。用 OOP 的伪码先介绍一下算法：
@@ -149,51 +150,68 @@ void BinaryTreeLayerorderTraversalAuxWithPrinter(BinaryTree* tr, IntPrinter prin
   qe->tail->prev = qe->sentinel;
   // 将首节点的 data 设置为树的根节点
   qe->tail->data = tr->root;
+  // 将 length 设置为 1
+  qe->length = 1u;
 
   // 通过 qe->tail 判断队列是否为空。这一步想要成立得有先决条件：
   // 在每一个需要 tail 置空的情况将其置空。
   // 否则，需要用 qe->sentinel->next 来判断，
   // 而且不能保证其他算法不会出现错误
   while (qe->tail) {
-    // 取得现在的首节点，因为待会儿一定会被取消挂载，不备份就找不到了。
-    BTNQueueNode* old_head = qe->sentinel->next;
-    // 只有当首节点有效（不为 null）时，才能将其左右子树添加到队列内。
-    if (old_head->data) {
-      // 这里是树节点不为空的情况，打印树节点的数据
-      print(old_head->data->data);
+    // 层宽度
+    size_t layerWidth = qe->length;
+    // 判断该层是否为空，如果为空这一行的换行不输出
+    bool isLayerEmpty = true;
+    for (size_t ii = 0u; ii != layerWidth; ++ii) {
+      // 取得现在的首节点，因为待会儿一定会被取消挂载，不备份就找不到了。
+      BTNQueueNode* old_head = qe->sentinel->next;
+      // 只有当首节点有效（不为 null）时，才能将其左右子树添加到队列内。
+      if (old_head->data) {
+        // 这里是树节点不为空的情况，打印树节点的数据
+        print(old_head->data->data);
+        // 打印过数据，该行不为空
+        if (isLayerEmpty) isLayerEmpty = false;
 
-      // 创建将要添加进队列的两个节点（这里的节点是队列的节点），
-      // 一个用于存放左子树的根节点，另一个存放右子树的根节点
-      BTNQueueNode* left_one = (BTNQueueNode*) malloc(sizeof(BTNQueueNode));
-      BTNQueueNode* right_one = (BTNQueueNode*) malloc(sizeof(BTNQueueNode));
-      // 这个 tail 是用于备份原尾部的，因为队列的插入操作是尾插，
-      // 这里不备份之后找不到。
-      BTNQueueNode* tail = qe->tail;
+        // 创建将要添加进队列的两个节点（这里的节点是队列的节点），
+        // 一个用于存放左子树的根节点，另一个存放右子树的根节点
+        BTNQueueNode* left_one = (BTNQueueNode*) malloc(sizeof(BTNQueueNode));
+        BTNQueueNode* right_one = (BTNQueueNode*) malloc(sizeof(BTNQueueNode));
+        // 这个 tail 是用于备份原尾部的，因为队列的插入操作是尾插，
+        // 这里不备份之后找不到。
+        BTNQueueNode* tail = qe->tail;
 
-      // 设置两节点的 data 域
-      left_one->data = old_head->data->left;
-      right_one->data = old_head->data->right;
+        // 设置两节点的 data 域
+        left_one->data = old_head->data->left;
+        right_one->data = old_head->data->right;
 
-      // 做五个链接
-      tail->next = left_one;
-      left_one->next = right_one;
-      right_one->next = NULL;
-      right_one->prev = left_one;
-      left_one->prev = tail;
-      // 让 qe 的 tail 指向新的队尾
-      qe->tail = right_one;
+        // 做五个链接
+        tail->next = left_one;
+        left_one->next = right_one;
+        right_one->next = NULL;
+        right_one->prev = left_one;
+        left_one->prev = tail;
+        // 让 qe 的 tail 指向新的队尾
+        qe->tail = right_one;
+        // length 自增
+        qe->length += 2;
+      }
+      // 这部分是是首节点弹出逻辑。无论首节点是否有效，首节点都需要弹出。
+      // 将 sentinel->next 的挂载链后移一位
+      qe->sentinel->next = qe->sentinel->next->next;
+      // 判断原首节点的下一位为不为空
+      // 如果不为空，那还需要将它的 prev 域指向 sentinel
+      // 如果为空，即队列为空，队列的尾节点指向需要更新
+      if (qe->sentinel->next)
+        qe->sentinel->next->prev = qe->sentinel;
+      else qe->tail = NULL;
+      // 解散原头部。
+      free(old_head);
+      // length 自减
+      --qe->length;
     }
-    // 这部分是是首节点弹出逻辑。无论首节点是否有效，首节点都需要弹出。
-    // 将 sentinel->next 的挂载链后移一位
-    qe->sentinel->next = qe->sentinel->next->next;
-    // 判断原首节点的下一位为不为空
-    // 如果不为空，那还需要将它的 prev 域指向 sentinel
-    // 如果为空，即队列为空，队列的尾节点指向需要更新
-    if (qe->sentinel->next)
-      qe->sentinel->next->prev = qe->sentinel;
-    else qe->tail = NULL;
-    // 解散原头部。
-    free(old_head);
+    // 打印下一层
+    if (!isLayerEmpty)
+      putchar('\n');
   }
 
   // 能到达这个地方，队列一定为空。直接解散哨兵节点和 qe 本身。算法结束。

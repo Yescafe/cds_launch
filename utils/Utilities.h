@@ -16,7 +16,7 @@ int _Error(const char* fmt, ...);
 #  define _Assert(p, e) ((void) 0)
 #else
   void _Assert(bool pred, const char* err_info);
-#endif /* STD_ASSERT */
+#endif /* NO_ASSERT */
 
 #ifdef __cplusplus
 }

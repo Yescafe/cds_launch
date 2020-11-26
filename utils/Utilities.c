@@ -28,7 +28,7 @@ int _Error(const char* fmt, ...)
       exit(1);
     }
   }
-#endif /* STD_ASSERT */
+#endif /* NO_ASSERT */
 
 #ifdef __cplusplus
 }

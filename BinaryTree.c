@@ -247,6 +247,7 @@ static void BinaryTreeDestructAux(BinaryTreeNode* nde)
 void BinaryTreeDestruct(BinaryTree* tr)
 {
   BinaryTreeDestructAux(tr->root);
+  tr->root = NULL;
 }
 
 #ifdef __cplusplus
